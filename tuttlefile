@@ -48,8 +48,6 @@ file://departements-pbf <-
 file://departements-pbf/departement-78.osm.pbf <- file://departements-pbf,  file://planet-latest.osm.pbf
     osmosis/bin/osmosis --read-pbf planet-france.osm.pbf  --bounding-polygon file=departements/departement-78.poly --write-pbf departements-pbf/departement-78.osm.pbf
 	
-file://departement-78 <-
-    mkdir departement-78
 
 file://departement-78/roads.shp <- file://departement-78 , file://departements-pbf/departement-78.osm.pbf 
     ogr2ogr -f "ESRI Shapefile" departement-78/roads.shp -sql "select osm_id, name, ref, highway AS "type", oneway, bridge, tunnel, maxspeed from lines where highway is not null" -lco ENCODING=UTF-8 departements-pbf/departement-78.osm.pbf 
