@@ -1,0 +1,19 @@
+
+file://departements-shp.zip <- http://osm13.openstreetmap.fr/~cquest/openfla/export/departements-20140306-5m-shp.zip ! download
+
+file://departements <- file://departements-shp.zip
+    mkdir departements
+    cd departements
+    unzip ../departements-shp.zip
+    rename 's/departements[^.]*(\..*)/departements$1/' *
+	
+file://LICENCE.txt <- file://departements
+    cp departements/LICENCE.txt .
+
+file://polygones <- file://departements, file://shp2poly_departements.py ! python
+    import os, sys
+    sys.path.append(os.getcwd())
+    import shp2poly_departements
+	
+    os.mkdir('polygones')
+    shp2poly_departements.shp2polys('departements/departements.shp', 'polygones')
