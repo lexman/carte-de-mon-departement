@@ -36,7 +36,7 @@ file://departements-pbf <-
     mkdir departements-pbf
 
 
-file://departements-pbf/departement-78.osm.pbf <- file://planet-latest.osm.pbf, file://departements-pbf
+file://departements-pbf/departement-78.osm.pbf <- file://planet-latest.osm.pbf, file://departements-pbf, file://polygones
     osmosis/bin/osmosis --read-pbf planet-france.osm.pbf  --bounding-polygon file=polygones/departement-78.poly --write-pbf departements-pbf/departement-78.osm.pbf
 
 	
