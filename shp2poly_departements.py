@@ -1,15 +1,9 @@
 # -*- coding: utf-8 -*-
-# Inspired from 
+""" Split a shapefile to several .poly files :
+http://wiki.openstreetmap.org/wiki/Osmosis/Polygon_Filter_File_Format
+"""
 import os,sys
-
-# pyshp is the library used in by this script. It is available for
-# download here:
-#    https://code.google.com/p/pyshp/
-#
-# pyshp is licensed under the MIT-license:
-#    http://opensource.org/licenses/mit-license.php
 import shapefile
-
 
 def shp2polys(shp_file, dest_dir):
     sf = shapefile.Reader(shp_file)
@@ -21,8 +15,11 @@ def shp2polys(shp_file, dest_dir):
         dept_code = records[counter][0]
         output_name = "departement-{}.poly".format(dept_code)
         with open (os.path.join(dest_dir, output_name), 'w') as target:
+            target.write("Departement {}\n".format(dept_code))		
+            target.write("1\n".format(dept_code))		
             for coords in shapeobject.points:
                 coords_str = "{} {}".format(coords[1], coords[0]).replace(".", ",")
                 target.write("{}\n".format(coords_str))		
+            target.write("END\nEND\n".format(coords_str))		
         counter = counter + 1
 

@@ -5,14 +5,7 @@ file://osmosis <- http://bretth.dev.openstreetmap.org/osmosis-build/osmosis-late
     tar xvfz osmosis-latest.tgz
     chmod a+x bin/osmosis
 
-	
-file://planet-latest.osm.pbf <- http://planet.osm.org/pbf/planet-latest.osm.pbf ! download
-
-
-file://planet-france.osm.pbf <- file://planet-latest.osm.pbf
-    osmosis/bin/osmosis --read-pbf planet-latest.osm.pbf   --bounding-box top=51.15 left=-5.2 bottom=42.3 right=8.32 --write-pbf planet-france.osm.pbf
-
-	
+		
 file://departements-shp.zip <- http://osm13.openstreetmap.fr/~cquest/openfla/export/departements-20140306-5m-shp.zip ! download
 
 
@@ -36,6 +29,12 @@ file://polygones <- file://departements, file://shp2poly_departements.py ! pytho
     shp2poly_departements.shp2polys('departements/departements.shp', 'polygones')
 
 	
+file://planet-latest.osm.pbf <- http://planet.osm.org/pbf/planet-latest.osm.pbf ! download
+
+
+file://planet-france.osm.pbf <- file://planet-latest.osm.pbf
+    osmosis/bin/osmosis --read-pbf planet-latest.osm.pbf   --bounding-box top=51.15 left=-5.2 bottom=42.3 right=8.32 --write-pbf planet-france.osm.pbf
+
 file://departement-78 <- file://planet-latest.osm.pbf
     mkdir departement-78
     osmosis/bin/osmosis --read-pbf planet-france.osm.pbf  --bounding-polygon file=departements/departement-78.poly --write-pbf departement-78/departement-78.osm.pbf
