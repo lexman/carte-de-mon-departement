@@ -24,7 +24,6 @@ file://polygones <- file://departements, file://shp2poly_departements.py ! pytho
     import os, sys
     sys.path.append(os.getcwd())
     import shp2poly_departements
-	
     os.mkdir('polygones')
     shp2poly_departements.shp2polys('departements/departements.shp', 'polygones')
 
