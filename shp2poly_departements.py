@@ -18,7 +18,7 @@ def shp2polys(shp_file, dest_dir):
             target.write("Departement {}\n".format(dept_code))		
             target.write("1\n".format(dept_code))		
             for coords in shapeobject.points:
-                coords_str = "{} {}".format(coords[1], coords[0]).replace(".", ",")
+                coords_str = "    {}    {}".format(coords[1], coords[0]).replace(",", ".")
                 target.write("{}\n".format(coords_str))		
             target.write("END\nEND\n".format(coords_str))		
         counter = counter + 1
