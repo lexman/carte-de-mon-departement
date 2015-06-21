@@ -42,7 +42,7 @@ file://departements-pbf/departement-78.osm.pbf <- file://planet-france.osm.pbf, 
 	
 file://departement-78, file://departement-78/roads.shp <- file://departements-pbf/departement-78.osm.pbf 
     mkdir departement-78
-    ogr2ogr -f "ESRI Shapefile" departement-78/roads.shp -sql "select osm_id, name, highway AS "type", oneway, bridge, tunnel, maxspeed from lines where highway is not null" -lco ENCODING=UTF-8 departements-pbf/departement-78.osm.pbf 
+    ogr2ogr -f "ESRI Shapefile" departement-78/roads.shp -sql "select osm_id, name, highway AS "type", bridge, tunnel, maxspeed from lines where highway is not null" -lco ENCODING=UTF-8 departements-pbf/departement-78.osm.pbf 
 
 
 file://planet-latest.osm.pbf <- http://planet.osm.org/pbf/planet-latest.osm.pbf ! download
