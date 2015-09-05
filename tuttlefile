@@ -5,21 +5,26 @@ file://osmosis <- http://bretth.dev.openstreetmap.org/osmosis-build/osmosis-late
     tar xvfz osmosis-latest.tgz
     chmod a+x bin/osmosis
 
-		
-file://departements-shp.zip <- http://osm13.openstreetmap.fr/~cquest/openfla/export/departements-20140306-5m-shp.zip ! download
 
+# Extraction d'une base OSM France OSM
+file://planet-latest.osm.pbf <- http://planet.osm.org/pbf/planet-latest.osm.pbf ! download
+
+file://planet-france.osm.pbf <- file://planet-latest.osm.pbf, file://osmosis
+    osmosis/bin/osmosis --read-pbf planet-latest.osm.pbf   --bounding-box top=51.15 left=-5.2 bottom=42.3 right=8.32 --write-pbf planet-france.osm.pbf
+
+
+# Création de fichier de découpage de départements
+file://departements-shp.zip <- http://osm13.openstreetmap.fr/~cquest/openfla/export/departements-20140306-5m-shp.zip ! download
 
 file://departements <- file://departements-shp.zip
     mkdir departements
     cd departements
     unzip ../departements-shp.zip
     rename 's/departements[^.]*(\..*)/departements$1/' *
-
 	
 file://LICENCE.txt <- file://departements
     cp departements/LICENCE.txt .
 
-	
 file://polygones <- file://departements, file://shp2poly_departements.py ! python
     import os, sys
     sys.path.append(os.getcwd())
@@ -27,24 +32,17 @@ file://polygones <- file://departements, file://shp2poly_departements.py ! pytho
     os.mkdir('polygones')
     shp2poly_departements.shp2polys('departements/departements.shp', 'polygones')
 
-	
-file://planet-france.osm.pbf <- file://planet-latest.osm.pbf, file://osmosis
-    osmosis/bin/osmosis --read-pbf planet-latest.osm.pbf   --bounding-box top=51.15 left=-5.2 bottom=42.3 right=8.32 --write-pbf planet-france.osm.pbf
-
-	
+# Extraction d'une base OSM par département
 file://departements-pbf <-
     mkdir departements-pbf
-
 
 file://departements-pbf/departement-78.osm.pbf <- file://planet-france.osm.pbf, file://departements-pbf, file://polygones
     osmosis/bin/osmosis --read-pbf planet-france.osm.pbf  --bounding-polygon file=polygones/departement-78.poly --write-pbf departements-pbf/departement-78.osm.pbf
 
-	
+# Création de shapefiles pour le département 78
 file://departement-78, file://departement-78/roads.shp <- file://departements-pbf/departement-78.osm.pbf 
     mkdir departement-78
     ogr2ogr -f "ESRI Shapefile" departement-78/roads.shp -sql "select osm_id, name, highway AS "type", * from lines where highway is not null" -lco ENCODING=UTF-8 departements-pbf/departement-78.osm.pbf 
 
-
-file://planet-latest.osm.pbf <- http://planet.osm.org/pbf/planet-latest.osm.pbf ! download
 
 
