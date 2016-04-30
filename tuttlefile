@@ -1,8 +1,9 @@
-file://osmosis <- http://bretth.dev.openstreetmap.org/osmosis-build/osmosis-latest.tgz
+file://osmosis-latest.tgz <- http://bretth.dev.openstreetmap.org/osmosis-build/osmosis-latest.tgz ! download
+
+file://osmosis <- file://osmosis-latest.tgz
     mkdir osmosis
     cd osmosis
-    wget http://bretth.dev.openstreetmap.org/osmosis-build/osmosis-latest.tgz
-    tar xvfz osmosis-latest.tgz
+    tar xvfz ../osmosis-latest.tgz
     chmod a+x bin/osmosis
 
 
