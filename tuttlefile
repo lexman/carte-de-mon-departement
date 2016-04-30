@@ -1,37 +1,6 @@
-file://osmosis-latest.tgz <- http://bretth.dev.openstreetmap.org/osmosis-build/osmosis-latest.tgz ! download
+include crop_world.tuttle
 
-file://osmosis <- file://osmosis-latest.tgz
-    mkdir osmosis
-    cd osmosis
-    tar xvfz ../osmosis-latest.tgz
-    chmod a+x bin/osmosis
-
-
-# Extraction d'une base OSM France OSM
-file://planet-latest.osm.pbf <- http://planet.osm.org/pbf/planet-latest.osm.pbf ! download
-
-file://planet-france.osm.pbf <- file://planet-latest.osm.pbf, file://osmosis
-    osmosis/bin/osmosis  --read-pbf planet-latest.osm.pbf   --bounding-box top=51.15 left=-5.2 bottom=42.3 right=8.32 --write-pbf planet-france.osm.pbf
-
-
-# Création de fichier de découpage de départements
-file://departements-shp.zip <- http://osm13.openstreetmap.fr/~cquest/openfla/export/departements-20140306-5m-shp.zip ! download
-
-file://departements <- file://departements-shp.zip
-    mkdir departements
-    cd departements
-    unzip ../departements-shp.zip
-    rename 's/departements[^.]*(\..*)/departements$1/' *
-	
-file://LICENCE.txt <- file://departements
-    cp departements/LICENCE.txt .
-
-file://polygones <- file://departements, file://shp2poly_departements.py ! python
-    import os, sys
-    sys.path.append(os.getcwd())
-    import shp2poly_departements
-    os.mkdir('polygones')
-    shp2poly_departements.shp2polys('departements/departements.shp', 'polygones')
+include extract_departements_shapes.tuttle
 
 # Extraction d'une base OSM par département
 file://departements-pbf <-
@@ -39,27 +8,5 @@ file://departements-pbf <-
 
 file://departements-pbf/departement-78.osm.pbf <- file://planet-france.osm.pbf, file://departements-pbf, file://polygones
     osmosis/bin/osmosis --read-pbf planet-france.osm.pbf  --bounding-polygon file=polygones/departement-78.poly --write-pbf departements-pbf/departement-78.osm.pbf
-
-# Création de shapefiles pour le département 78
-file://departement-78 <- file://departements-pbf/departement-78.osm.pbf
-    mkdir departement-78
-
-file://departement-78/roads.shp <- file://departements-pbf/departement-78.osm.pbf, file://departement-78, file://osm_extract/osm_config.ini
-    ogr2ogr -f "ESRI Shapefile" departement-78/roads.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -sql "select osm_id, name, highway AS "type", CAST(oneway AS integer) + 1 AS "oneway", CAST(bridge AS integer) + 1 AS bridge, CAST(tunnel AS integer) + 1 AS tunnel, CAST(maxspeed AS integer) + 1 AS maxspeed from lines where highway is not null" -lco ENCODING=UTF-8 departements-pbf/departement-78.osm.pbf
-
-file://departement-78/waterways.shp, file://departement-78/waterways.shx, file://departement-78/waterways.prj, file://departement-78/waterways.dbf, file://departement-78/waterways.cpg <- file://departements-pbf/departement-78.osm.pbf, file://departement-78, file://osm_extract/osm_config.ini
-    ogr2ogr -f "ESRI Shapefile" departement-78/waterways.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -sql "select osm_id, name, waterway AS "type", width from lines where waterway is not null" -lco ENCODING=UTF-8 departements-pbf/departement-78.osm.pbf
-
-file://departement-78/railways.shp, file://departement-78/railways.shx, file://departement-78/railways.prj, file://departement-78/railways.dbf, file://departement-78/railways.cpg <- file://departements-pbf/departement-78.osm.pbf, file://departement-78, file://osm_extract/osm_config.ini
-    ogr2ogr -f "ESRI Shapefile" departement-78/railways.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -sql "select osm_id, name, railway AS "type", width from lines where railway is not null" -lco ENCODING=UTF-8 departements-pbf/departement-78.osm.pbf
-
-file://departement-78/buildings.shp, file://departement-78/buildings.shx, file://departement-78/buildings.prj, file://departement-78/buildings.dbf, file://departement-78/buildings.cpg <- file://departements-pbf/departement-78.osm.pbf, file://departement-78, file://osm_extract/osm_config.ini
-    ogr2ogr -f "ESRI Shapefile" departement-78/buildings.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -sql "select osm_id, name, building AS "type" from multipolygons where building is not null" -lco ENCODING=UTF-8 departements-pbf/departement-78.osm.pbf
-
-file://departement-78/landuse.shp, file://departement-78/landuse.shx, file://departement-78/landuse.prj, file://departement-78/landuse.dbf, file://departement-78/landuse.cpg <- file://departements-pbf/departement-78.osm.pbf, file://departement-78, file://osm_extract/osm_config.ini
-    ogr2ogr -f "ESRI Shapefile" departement-78/landuse.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -sql "select osm_id, name, landuse AS "type" from multipolygons where landuse is not null" -lco ENCODING=UTF-8 departements-pbf/departement-78.osm.pbf
-
-file://departement-78/places.shp, file://departement-78/places.shx, file://departement-78/places.prj, file://departement-78/places.dbf, file://departement-78/places.cpg <- file://departements-pbf/departement-78.osm.pbf, file://departement-78, file://osm_extract/osm_config.ini
-    ogr2ogr -f "ESRI Shapefile" departement-78/places.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -sql "select osm_id, name, place AS "type", population from multipolygons where landuse is not null" -lco ENCODING=UTF-8 departements-pbf/departement-78.osm.pbf
-
-
+    
+include process_departement_78.tuttle
