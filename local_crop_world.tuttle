@@ -1,0 +1,2 @@
+file://planet-france.osm.pbf <- file://iter_data/ile-de-france-latest.osm.pbf
+    cp iter_data/ile-de-france-latest.osm.pbf planet-france.osm.pbf

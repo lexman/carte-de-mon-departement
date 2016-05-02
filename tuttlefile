@@ -6,10 +6,17 @@ include extract_departements_shapes.tuttle
 file://departements-pbf <-
     mkdir departements-pbf
 
-file://departements-pbf/departement-78.osm.pbf <- file://planet-france.osm.pbf, file://departements-pbf, file://polygones
-    osmosis/bin/osmosis --read-pbf planet-france.osm.pbf  --bounding-polygon file=polygones/departement-78.poly --write-pbf departements-pbf/departement-78.osm.pbf
+file://departements-pbf/departement-78.osm.pbf, file://departements-pbf/departement-92.osm.pbf <- file://planet-france.osm.pbf, file://departements-pbf, file://polygones
+    osmosis/bin/osmosis --read-pbf planet-france.osm.pbf --tee 8 --bounding-polygon file=polygones/departement-75.poly --write-pbf departements-pbf/departement-75.osm.pbf --bounding-polygon file=polygones/departement-77.poly --write-pbf departements-pbf/departement-77.osm.pbf --bounding-polygon file=polygones/departement-78.poly --write-pbf departements-pbf/departement-78.osm.pbf --bounding-polygon file=polygones/departement-91.poly --write-pbf departements-pbf/departement-91.osm.pbf --bounding-polygon file=polygones/departement-92.poly --write-pbf departements-pbf/departement-92.osm.pbf --bounding-polygon file=polygones/departement-93.poly --write-pbf departements-pbf/departement-93.osm.pbf --bounding-polygon file=polygones/departement-94.poly --write-pbf departements-pbf/departement-94.osm.pbf --bounding-polygon file=polygones/departement-95.poly --write-pbf departements-pbf/departement-95.osm.pbf
     
 file://zips <-
     mkdir zips
 
+include process_departement_75.tuttle
+include process_departement_77.tuttle
 include process_departement_78.tuttle
+include process_departement_91.tuttle
+include process_departement_92.tuttle
+include process_departement_93.tuttle
+include process_departement_94.tuttle
+include process_departement_95.tuttle

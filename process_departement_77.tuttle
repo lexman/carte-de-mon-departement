@@ -1,0 +1,36 @@
+# Création de shapefiles pour le département 77
+file://departement-77 <- file://departements-pbf/departement-77.osm.pbf
+    mkdir departement-77
+
+file://departement-77/places.shp, file://departement-77/places.shx, file://departement-77/places.prj, file://departement-77/places.dbf, file://departement-77/places.cpg <- file://departements-pbf/departement-77.osm.pbf, file://departement-77, file://osm_extract/osm_config.ini
+     ogr2ogr -f "ESRI Shapefile" departement-77/places.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -sql "select osm_id, name, place AS "type", population from points where place is not null" -lco ENCODING=UTF-8 departements-pbf/departement-77.osm.pbf
+
+file://departement-77/roads.shp <- file://departements-pbf/departement-77.osm.pbf, file://departement-77, file://osm_extract/osm_config.ini
+    ogr2ogr -f "ESRI Shapefile" departement-77/roads.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -sql "select osm_id, name, highway AS "type", CAST(oneway AS integer) + 1 AS "oneway", CAST(bridge AS integer) + 1 AS bridge, CAST(tunnel AS integer) + 1 AS tunnel, CAST(maxspeed AS integer) + 1 AS maxspeed from lines where highway is not null" -lco ENCODING=UTF-8 departements-pbf/departement-77.osm.pbf
+    
+file://departement-77/buildings.shp, file://departement-77/buildings.shx, file://departement-77/buildings.prj, file://departement-77/buildings.dbf, file://departement-77/buildings.cpg <- file://departements-pbf/departement-77.osm.pbf, file://departement-77, file://osm_extract/osm_config.ini
+    ogr2ogr -f "ESRI Shapefile" departement-77/buildings.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -sql "select osm_id, name, building AS "type" from multipolygons where building is not null" -lco ENCODING=UTF-8 departements-pbf/departement-77.osm.pbf
+
+file://departement-77/railways.shp, file://departement-77/railways.shx, file://departement-77/railways.prj, file://departement-77/railways.dbf, file://departement-77/railways.cpg <- file://departements-pbf/departement-77.osm.pbf, file://departement-77, file://osm_extract/osm_config.ini
+    ogr2ogr -f "ESRI Shapefile" departement-77/railways.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -sql "select osm_id, name, railway AS "type", width from lines where railway is not null" -lco ENCODING=UTF-8 departements-pbf/departement-77.osm.pbf
+
+file://departement-77/waterways.shp, file://departement-77/waterways.shx, file://departement-77/waterways.prj, file://departement-77/waterways.dbf, file://departement-77/waterways.cpg <- file://departements-pbf/departement-77.osm.pbf, file://departement-77, file://osm_extract/osm_config.ini
+    ogr2ogr -f "ESRI Shapefile" departement-77/waterways.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -sql "select osm_id, name, waterway AS "type", width from lines where waterway is not null" -lco ENCODING=UTF-8 departements-pbf/departement-77.osm.pbf
+
+file://departement-77/points.shp, file://departement-77/points.shx, file://departement-77/points.prj, file://departement-77/points.dbf, file://departement-77/points.cpg <- file://departements-pbf/departement-77.osm.pbf, file://departement-77, file://osm_extract/osm_config.ini
+    ogr2ogr -f "ESRI Shapefile" departement-77/points.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -dialect SQLITE -sql "select osm_id, GEOMETRY, name, coalesce(REPLACE(highway,'yes','highway'), REPLACE(man_made,'yes','man_made'), REPLACE(amenity,'yes','amenity'), REPLACE(shop,'yes','shop'), REPLACE(tourism,'yes','tourism'), REPLACE(railway,'yes','railway'), REPLACE(historic,'yes','historic'), REPLACE(office,'yes','office'), REPLACE(craft,'yes','craft')) AS type FROM points WHERE highway is not null OR man_made is not null OR amenity is not null OR shop is not null OR tourism is not null OR railway is not null OR historic is not null OR office is not null OR craft is not null" -lco ENCODING=UTF-8 departements-pbf/departement-77.osm.pbf
+
+file://departement-77/natural.shp, file://departement-77/natural.shx, file://departement-77/natural.prj, file://departement-77/natural.dbf, file://departement-77/natural.cpg <- file://departements-pbf/departement-77.osm.pbf, file://departement-77, file://osm_extract/osm_config.ini
+    ogr2ogr -f "ESRI Shapefile" departement-77/natural.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -dialect SQLITE -sql "select osm_id, GEOMETRY, name, coalesce(waterway,leisure,landuse,REPLACE(natural,'wood','forest')) AS "type" from multipolygons where waterway is not null or leisure='park' or landuse='forest' or landuse='park' or natural='wood' or natural='water'" -lco ENCODING=UTF-8 departements-pbf/departement-77.osm.pbf
+
+file://departement-77/landuse.shp, file://departement-77/landuse.shx, file://departement-77/landuse.prj, file://departement-77/landuse.dbf, file://departement-77/landuse.cpg <- file://departements-pbf/departement-77.osm.pbf, file://departement-77, file://osm_extract/osm_config.ini
+    ogr2ogr -f "ESRI Shapefile" departement-77/landuse.shp --config OSM_CONFIG_FILE osm_extract/osm_config.ini -sql "select osm_id, name, landuse AS "type" from multipolygons where landuse is not null" -lco ENCODING=UTF-8 departements-pbf/departement-77.osm.pbf
+
+file://departement-77/admin-departement.shp, file://departement-77/admin-departement.shx, file://departement-77/admin-departement.prj, file://departement-77/admin-departement.dbf <- file://departement-77, file://departements
+    ogr2ogr -f "ESRI Shapefile" departement-77/admin-departement.shp -where "code_insee='77'" departements/departements.shp
+
+file://departement-77/departement.qgs <- file://departement.qgs
+    cp departement.qgs departement-77/departement.qgs
+
+file://zips/departement-77.zip <- file://zips, file://departement-77/departement.qgs, file://departement-77/admin-departement.shp, file://departement-77/places.shp, file://departement-77/roads.shp, file://departement-77/buildings.shp, file://departement-77/railways.shp, file://departement-77/waterways.shp, file://departement-77/points.shp, file://departement-77/natural.shp, file://departement-77/landuse.shp
+    zip -r zips/departement-77.zip departement-77
