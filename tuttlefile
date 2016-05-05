@@ -6,12 +6,18 @@ file://zips <-
     mkdir zips
     
 |<<
-    DEPTS=`cat departements_metropolitains.txt|tr `\r\n' '  '`
-    echo Creation de carte pour les départements
-    echo $DEPTS
-    tuttle-extend-workflow extraire_departement.tuttle departements[]=$DEPTS
-    
-    for num in $DEPTS
+    DEPTS_CONT=`cat departements_metropolitains.txt|tr `\r\n' '  '`
+    echo Creation de carte pour les départements du continent
+    echo $DEPTS_CONT
+    tuttle-extend-workflow extraire_departement_continentaux.tuttle departements[]=$DEPTS_CONT    
+
+    $DEPTS_LOIN="2A 2B 971 972 973 974 976"
+    echo Creation de carte pour les départements un peu plus loin...
+    echo $DEPTS_LOIN
+    tuttle-extend-workflow extraire_departement_lointains.tuttle departements[]=$DEPTS_LOIN
+
+    for num in $DEPTS_CONT $DEPTS_LOIN
     do
         tuttle-extend-workflow process_departement_X.tuttle num=$num
     done
+    
