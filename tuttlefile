@@ -1,4 +1,4 @@
-include local_crop_world.tuttle
+include crop_world.tuttle
 
 include extract_departements_shapes.tuttle
 
