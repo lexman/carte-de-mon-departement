@@ -11,7 +11,7 @@ file://zips <-
     echo $DEPTS_CONT
     tuttle-extend-workflow extraire_departement_continentaux.tuttle departements[]=$DEPTS_CONT    
 
-    $DEPTS_LOIN="2A 2B 971 972 973 974 976"
+    DEPTS_LOIN="2A 2B 971 972 973 974 976"
     echo Creation de carte pour les départements un peu plus loin...
     echo $DEPTS_LOIN
     tuttle-extend-workflow extraire_departement_lointains.tuttle departements[]=$DEPTS_LOIN
