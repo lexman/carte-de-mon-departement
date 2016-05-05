@@ -6,7 +6,6 @@ file://departements <- file://departements-shp.zip
     mkdir departements
     cd departements
     unzip ../departements-shp.zip
-#    rename 's/departements[^.]*(\..*)/departements$1/' *
     mv departements-*.cpg departements.cpg
     mv departements-*.dbf departements.dbf
     mv departements-*.prj departements.prj

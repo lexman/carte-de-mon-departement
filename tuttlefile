@@ -4,18 +4,14 @@ include extract_departements_shapes.tuttle
 
 file://zips <-
     mkdir zips
-
+    
 |<<
-    python d:\dev\tuttle\bin\tuttle-extend-workflow extraire_departement.tuttle departements[]=75 77 78 91 92 93 94 95
+    DEPTS=`cat departements_metropolitains.txt|tr `\r\n' '  '`
+    echo Creation de carte pour les départements
+    echo $DEPTS
+    tuttle-extend-workflow extraire_departement.tuttle departements[]=$DEPTS
     
-    for %%N in (75 77 78 91 92 93 94 95) do (
-        python d:\dev\tuttle\bin\tuttle-extend-workflow process_departement_X.tuttle num=%%N
-    )
-    
-#|<<
-#    python d:\dev\tuttle\bin\tuttle-extend-workflow extraire_departement.tuttle departements[]=75 77 78 91 92 93 94 95
-#    
-#    for num in 75 77 78 91 92 93 94 95
-#    do
-#        python d:\dev\tuttle\bin\tuttle-extend-workflow process_departement_X.tuttle num=$num
-#    done
+    for num in $DEPTS
+    do
+        tuttle-extend-workflow process_departement_X.tuttle num=$num
+    done
