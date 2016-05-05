@@ -6,7 +6,7 @@ file://zips <-
     mkdir zips
     
 |<<
-    DEPTS_CONT=`cat departements_metropolitains.txt|tr '\r\n' '  '`
+    DEPTS_CONT=`cat departement_metropolitain.txt|tr '\r\n' '  '`
     echo Creation de carte pour les départements du continent
     echo $DEPTS_CONT
     tuttle-extend-workflow extraire_departement_continentaux.tuttle departements[]=$DEPTS_CONT    
