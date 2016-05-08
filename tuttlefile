@@ -4,6 +4,9 @@ include extract_departements_shapes.tuttle
 
 file://zips <-
     mkdir zips
+
+file://publish <-
+    mkdir publish
     
 |<<
     DEPTS_CONT=`cat departement_metropolitain.txt|tr '\r\n' '  '`
