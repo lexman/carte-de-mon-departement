@@ -1,8 +1,10 @@
 # Cartes des départements 
 
 Ce projet extrait la cartes de chaque départements français depuis l'archive hebdomadaire d'Open Street Map, selon la [méthode proposée 
-Maxime Résibois](http://www.portailsig.org/content/recuperer-des-donnees-openstreetmap-gdalogr)
- sur PortailSIG. 
+Maxime Résibois](http://www.portailsig.org/content/recuperer-des-donnees-openstreetmap-gdalogr) sur PortailSIG.
+
+Les données produites par ce projet sont disponibles sur [la plateforme data.gouv.fr](https://www.data.gouv.fr/fr/datasets/carte-des-departements-2/) 
+avec une mise à jour hebdomadaire.
 
 
 # Contenu
