@@ -19,8 +19,9 @@ file://publish <-
     echo $DEPTS_LOIN
     tuttle-extend-workflow extraire_departement_lointains.tuttle departements[]=$DEPTS_LOIN
 
-    for num in $DEPTS_CONT $DEPTS_LOIN
+    for NUM in $DEPTS_CONT $DEPTS_LOIN
     do
-        tuttle-extend-workflow process_departement_X.tuttle num=$num
+        $NOM=`grep $NUM noms_departements.txt | awk '{print $2}'`
+        tuttle-extend-workflow process_departement_X.tuttle num=$NUM nom=$NOM
     done
     
