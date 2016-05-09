@@ -38,3 +38,5 @@ file://zips/departement-{{num}}.zip <- file://zips, file://departement-{{num}}/d
     
 http://sisyphus.lexman.org/workflows/carte_de_mon_departement/workspace/publish/departement-{{num}}-{{nom}}.zip <- file://publish, file://zips/departement-{{num}}.zip
     cp zips/departement-{{num}}.zip publish/departement-{{num}}-{{nom}}.zip
+    
+http://sisyphus.lexman.org/workflows/carte_de_mon_departement/workspace/publish/departement-{{num}}.zip <-
