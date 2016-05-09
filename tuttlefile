@@ -21,6 +21,6 @@ file://publish <-
 
     for NUM in $DEPTS_CONT $DEPTS_LOIN
     do
-        NOM=`grep $NUM noms_departements.txt | awk '{print $2}'`
+        NOM=`grep -r "^$NUM" noms_departements.txt | awk '{print $2}'`
         tuttle-extend-workflow process_departement_X.tuttle num=$NUM nom="$NOM"
     done
