@@ -1,0 +1,2 @@
+{% for num in departements %} file://publish/departement-{{num}}.zip {% if not loop.last %},{%endif%} {% endfor %} <- 
+    echo Il manque les fichiers à la fin
