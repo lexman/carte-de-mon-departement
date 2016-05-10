@@ -24,6 +24,3 @@ file://publish <-
         NOM=`grep -r "^$NUM" noms_departements.txt | awk '{print $2}'`
         tuttle-extend-workflow process_departement_X.tuttle num=$NUM nom="$NOM"
     done
-
-    DEPTS="$DEPTS_CONT $DEPTS_LOIN"
-    tuttle-extend-workflow menage.tuttle departements[]=$DEPTS
