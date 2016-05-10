@@ -25,5 +25,5 @@ file://publish <-
         tuttle-extend-workflow process_departement_X.tuttle num=$NUM nom="$NOM"
     done
 
-    DEPTS = "$DEPTS_CONT $DEPTS_LOIN"
+    DEPTS="$DEPTS_CONT $DEPTS_LOIN"
     tuttle-extend-workflow menage.tuttle departements[]=$DEPTS
