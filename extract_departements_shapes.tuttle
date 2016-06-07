@@ -15,7 +15,7 @@ file://departements <- file://departements-shp.zip
 file://LICENCE.txt <- file://departements
     cp departements/LICENCE.txt .
 
-file://polygones <- file://departements, file://shp2poly_departements.py ! python
+file://polygones <- file://departements file://shp2poly_departements.py ! python
     import os, sys
     sys.path.append(os.getcwd())
     import shp2poly_departements

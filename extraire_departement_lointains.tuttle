@@ -1,2 +1,2 @@
-{% for num in departements %} file://departements-pbf/departement-{{num}}.osm.pbf {% if not loop.last %},{%endif%} {% endfor %} <- file://planet-france.osm.pbf, file://departements-pbf, file://polygones
+{% for num in departements %}file://departements-pbf/departement-{{num}}.osm.pbf {% endfor %} <- file://planet-france.osm.pbf file://departements-pbf file://polygones
     osmosis/bin/osmosis --read-pbf planet-latest.osm.pbf --tee {{ departements|count }} {% for num in departements %} --bounding-polygon file=polygones/departement-{{num}}.poly --write-pbf departements-pbf/departement-{{num}}.osm.pbf {% endfor %}
