@@ -12,15 +12,15 @@ file://publish <-
     DEPTS_CONT=`cat departement_metropolitain.txt|tr '\r\n' '  '`
     echo Creation de carte pour les départements du continent
     echo $DEPTS_CONT
-    tuttle-extend-workflow extraire_departement_continentaux.tuttle departements[]=$DEPTS_CONT    
+    tuttle-extend-workflow -n extraire_departement_continentaux extraire_departement_continentaux.tuttle departements[]=$DEPTS_CONT    
 
     DEPTS_LOIN="2A 2B 971 972 973 974 976"
     echo Creation de carte pour les départements un peu plus loin...
     echo $DEPTS_LOIN
-    tuttle-extend-workflow extraire_departement_lointains.tuttle departements[]=$DEPTS_LOIN
+    tuttle-extend-workflow -n extraire_departement_lointains extraire_departement_lointains.tuttle departements[]=$DEPTS_LOIN
 
     for NUM in $DEPTS_CONT $DEPTS_LOIN
     do
         NOM=`grep -r "^$NUM" noms_departements.txt | awk '{print $2}'`
-        tuttle-extend-workflow process_departement_X.tuttle num=$NUM nom="$NOM"
+        tuttle-extend-workflow -n departement_$NUM process_departement_X.tuttle num=$NUM nom="$NOM"
     done
