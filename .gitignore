@@ -1,0 +1,10 @@
+departement-*/
+departements-pbf/
+polygones/
+publish/
+zips/
+osmosis*
+planet-*.osm.pbf
+departements-shp.zip
+departements/
+.tuttle/
