@@ -34,6 +34,4 @@ file://departement-{{num}}/departement.qgs <- file://departement.qgs,  file://de
 
 file://zips/departement-{{num}}.zip <- file://zips file://departement-{{num}}/departement.qgs file://departement-{{num}}/admin-departement.shp file://departement-{{num}}/places.shp file://departement-{{num}}/roads.shp file://departement-{{num}}/buildings.shp file://departement-{{num}}/railways.shp file://departement-{{num}}/waterways.shp file://departement-{{num}}/points.shp file://departement-{{num}}/natural.shp file://departement-{{num}}/landuse.shp
     zip -r zips/departement-{{num}}.zip departement-{{num}}
-    
-http://sisyphus.lexman.org/workflows/carte_de_mon_departement/workspace/publish/departement-{{num}}-{{nom}}.zip <- file://publish file://zips/departement-{{num}}.zip
-    cp zips/departement-{{num}}.zip publish/departement-{{num}}-{{nom}}.zip
+
