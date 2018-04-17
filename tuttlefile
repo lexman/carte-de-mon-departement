@@ -2,24 +2,44 @@ include crop_world.tuttle
 
 include extract_departements_shapes.tuttle
 
+file://departements-pbf <-
+    mkdir departements-pbf
+    
 file://zips <-
     mkdir zips
 
 file://publish <-
     mkdir publish
-    
+
 |<<
-    DEPTS_CONT=`cat departement_metropolitain.txt|tr '\r\n' '  '`
     echo Creation de carte pour les départements du continent
-    echo $DEPTS_CONT
-    tuttle-extend-workflow -n extraire_departement_continentaux extraire_departement_continentaux.tuttle departements[]=$DEPTS_CONT    
+    DEPTS_0="01 02 03 04 05 06 07 08 09"
+    DEPTS_1="10 11 12 13 14 15 16 17 18 19"
+    DEPTS_2="21 22 23 24 25 26 27 28 29"
+    DEPTS_3="30 31 32 33 34 35 36 37 38 39"
+    DEPTS_4="40 41 42 43 44 45 46 47 48 49"
+    DEPTS_5="50 51 52 53 54 55 56 57 58 59"
+    DEPTS_6="60 61 62 63 64 65 66 67 68 69"
+    DEPTS_7="70 71 72 73 74 75 76 77 78 79"
+    DEPTS_8="80 81 82 83 84 85 86 87 88 89"
+    DEPTS_9="90 91 92 93 94 95"
+    tuttle-extend-workflow -n extraire_departement_continentaux extraire_departement_continentaux.tuttle departements[]=$DEPTS_0
+    tuttle-extend-workflow -n extraire_departement_continentaux extraire_departement_continentaux.tuttle departements[]=$DEPTS_1
+    tuttle-extend-workflow -n extraire_departement_continentaux extraire_departement_continentaux.tuttle departements[]=$DEPTS_2
+    tuttle-extend-workflow -n extraire_departement_continentaux extraire_departement_continentaux.tuttle departements[]=$DEPTS_3
+    tuttle-extend-workflow -n extraire_departement_continentaux extraire_departement_continentaux.tuttle departements[]=$DEPTS_4
+    tuttle-extend-workflow -n extraire_departement_continentaux extraire_departement_continentaux.tuttle departements[]=$DEPTS_5
+    tuttle-extend-workflow -n extraire_departement_continentaux extraire_departement_continentaux.tuttle departements[]=$DEPTS_6
+    tuttle-extend-workflow -n extraire_departement_continentaux extraire_departement_continentaux.tuttle departements[]=$DEPTS_7
+    tuttle-extend-workflow -n extraire_departement_continentaux extraire_departement_continentaux.tuttle departements[]=$DEPTS_8
+    tuttle-extend-workflow -n extraire_departement_continentaux extraire_departement_continentaux.tuttle departements[]=$DEPTS_9
 
     DEPTS_LOIN="2A 2B 971 972 973 974 976"
     echo Creation de carte pour les départements un peu plus loin...
     echo $DEPTS_LOIN
     tuttle-extend-workflow -n extraire_departement_lointains extraire_departement_lointains.tuttle departements[]=$DEPTS_LOIN
 
-    for NUM in $DEPTS_CONT $DEPTS_LOIN
+    for NUM in $DEPTS_0 $DEPTS_1 $DEPTS_2 $DEPTS_3 $DEPTS_4 $DEPTS_5 $DEPTS_6 $DEPTS_7 $DEPTS_8 $DEPTS_9 $DEPTS_LOIN
     do
         NOM=`grep -r "^$NUM" noms_departements.txt | awk '{print $2}'`
         tuttle-extend-workflow -n departement_$NUM process_departement_X.tuttle num=$NUM nom="$NOM"

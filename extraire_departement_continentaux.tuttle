@@ -1,6 +1,3 @@
-# Extraction d'une base OSM par département
-file://departements-pbf <-
-    mkdir departements-pbf
 
 {% for num in departements %}file://departements-pbf/departement-{{num}}.osm.pbf {% endfor %} <- file://planet-france.osm.pbf file://departements-pbf file://polygones
     osmosis/bin/osmosis --read-pbf planet-france.osm.pbf --tee {{ departements|count }} {% for num in departements %} --bounding-polygon file=polygones/departement-{{num}}.poly --write-pbf departements-pbf/departement-{{num}}.osm.pbf {% endfor %}
