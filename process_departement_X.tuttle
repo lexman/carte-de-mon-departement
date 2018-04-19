@@ -32,6 +32,6 @@ file://departement-{{num}}/admin-departement.shp file://departement-{{num}}/admi
 file://departement-{{num}}/departement.qgs <- file://departement.qgs,  file://departement-{{num}}
     cp departement.qgs departement-{{num}}/departement.qgs
 
-file://zips/departement-{{num}}.zip <- file://zips file://departement-{{num}}/departement.qgs file://departement-{{num}}/admin-departement.shp file://departement-{{num}}/places.shp file://departement-{{num}}/roads.shp file://departement-{{num}}/buildings.shp file://departement-{{num}}/railways.shp file://departement-{{num}}/waterways.shp file://departement-{{num}}/points.shp file://departement-{{num}}/natural.shp file://departement-{{num}}/landuse.shp
+file://zips/departement-{num}}-{{nom}}.zip <- file://zips file://departement-{{num}}/departement.qgs file://departement-{{num}}/admin-departement.shp file://departement-{{num}}/places.shp file://departement-{{num}}/roads.shp file://departement-{{num}}/buildings.shp file://departement-{{num}}/railways.shp file://departement-{{num}}/waterways.shp file://departement-{{num}}/points.shp file://departement-{{num}}/natural.shp file://departement-{{num}}/landuse.shp
     zip -r zips/departement-{{num}}-{{nom}}.zip departement-{{num}}
 
