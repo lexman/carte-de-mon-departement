@@ -1,0 +1,7 @@
+http://opendata.lexman.net/{{res_name}}.zip <- file://../zips/{{res_name}}.zip
+    curl -n -T "../zips/{{res_name}}.zip" ftp://ftp.online.net/opendata/
+
+# En plus de publier le zip, il faut appeler l'API de data.gouv.fr pour lui signifier qu'on a mis à jour la donnée
+<- file://{{res_name}}.json http://opendata.lexman.net/{{res_name}}.zip
+    http PUT 'https://www.data.gouv.fr/api/1/datasets/5726ef67c751df48e1fcca0d/resources/{{id}}/' X-API-KEY:$API_KEY < {{res_name}}.json
+

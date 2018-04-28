@@ -1,0 +1,20 @@
+file://dataset.json <- https://www.data.gouv.fr/api/1/datasets/5726ef67c751df48e1fcca0d/ ! download
+
+|<< ! python
+    import urllib2
+    import json
+    from tuttle.extend_workflow import extend_workflow
+    
+    dataset_url = 'https://www.data.gouv.fr/api/1/datasets/5726ef67c751df48e1fcca0d/'
+    response = urllib2.urlopen(dataset_url)
+    #response = open("dataset.json")
+    dataset = json.load(response)
+    res_names = []
+    for resource in dataset['resources']:
+        id = resource['id']
+        url = resource['url']
+        res_name = url[url.rfind("/") +1 : -len(".zip")]
+        res_names.append(res_name)
+        print("* {} -> {}".format(res_name, id))
+        extend_workflow("update_departement.tuttle", id=id, res_name=res_name)
+    extend_workflow("dataset2departements.tuttle", res_names=res_names)

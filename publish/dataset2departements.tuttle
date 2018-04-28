@@ -1,0 +1,14 @@
+{% for res_name in res_names %} file://{{res_name}}.json  {% endfor %} <- file://dataset.json ! python
+    import urllib2
+    import json
+
+    dataset_url = 'https://www.data.gouv.fr/api/1/datasets/5726ef67c751df48e1fcca0d/'
+    # response = urllib2.urlopen(dataset_url)
+    response = open("dataset.json")
+    doc = json.load(response)
+    for resource in doc['resources']:
+        url = resource['url']
+        res_name = url[url.rfind("/") +1 : -len(".zip")]
+        fname = "{}.json".format(res_name)
+        with open(fname, 'w') as f:
+            f.write(json.dumps(resource))
