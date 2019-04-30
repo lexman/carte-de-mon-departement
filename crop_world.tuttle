@@ -9,7 +9,7 @@ file://osmosis <- file://osmosis-latest.tgz
 
 
 # Extraction d'une base OSM France OSM
-file://planet-latest.osm.pbf <- https://planet.osm.org/pbf/planet-latest.osm.pbf ! download
+file://planet-latest.osm.pbf <- https://ftp5.gwdg.de/pub/misc/openstreetmap/planet.openstreetmap.org/pbf/planet-latest.osm.pbf ! download
 
 file://planet-france.osm.pbf <- file://planet-latest.osm.pbf file://osmosis
     osmosis/bin/osmosis --read-pbf planet-latest.osm.pbf --bounding-box top=51.15 left=-5.2 bottom=42.3 right=8.32 --write-pbf planet-france.osm.pbf
